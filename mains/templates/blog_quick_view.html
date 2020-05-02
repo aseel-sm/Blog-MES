@@ -1,0 +1,63 @@
+{% extends 'basic_view.html' %}
+{% load static %}
+<!--
+index page
+  
+-->
+{% block quick_card_css %}
+<link rel="stylesheet" href="{% static 'css/quick_card.css' %}"/>
+{% endblock quick_card_css %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block wrap_class %}
+card-columns mt-3
+{% endblock wrap_class %}
+
+
+{% block content_wrap %}
+
+{% for blog in blogs  %}
+
+
+<div class="card border-0" style="background-color:#f5f8fa;border:none">
+
+    <div class="card-header p-1 " style="background-color:transparent;border-color:#e6ecf0;">
+        <div class="media">
+
+            <img class=" rounded-circle " style="margin:1px;width:50px;height:50px" src="media/{{blog.user_pic}}"
+                 alt="Generic placeholder image">
+
+            <div class="media-body ml-1 ">
+                <a href="profile/{{blog.author}}"><h5 class='mt-1 mb-0' style='font-weight:bold'>
+                    {{blog.author_name}}</h5></a>
+                <p class='mt-n1 text-muted mb-1'>@{{blog.author}}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card-body" style="position:relative">
+        <a href="read/{{blog.id}}" class='stretched-link' style='text-decoration:none'></a>
+        <h5 class="card-title">{{blog.title}}</h5>
+        <p class="card-text">
+            {{blog.content}}
+        </p>
+    </div>
+    <div class="card-footer" style="background-color:transparent;border-color:#e6ecf0">
+        <small class="text-muted"><i>Posted on {{blog.date}}</i>
+            {% if blog.edit == 1 %}
+            <i>,Edited</i>
+            {% endif %}
+        </small>
+        <div class="float-right">{{blog.comment_no}}<i class="fa fa-comments mx-1" aria-hidden="true"></i></div>
+
+    </div>
+
+
+</div>
+
+{% endfor %}
+{% endblock content_wrap %}
+ 

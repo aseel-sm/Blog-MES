@@ -1,0 +1,86 @@
+{% extends 'basic_view.html' %} {% block wrap_class %} {% endblock wrap_class %}
+{% block content_wrap %}
+
+<!--
+
+  User Profile
+-->
+<div class="card mt-3" style='border-color:transparent;'>
+    <div class="card-body" style="background-color: #f5f8fa;
+  border-radius:10px">
+        <div class="">
+            <div class="row">
+                {% for user in user_data %}
+                <img
+                        class="mt-2 mb-5 mx-auto rounded-circle"
+                        style="width: 100px; height: 100px;"
+                        src="{{user.image.url}}"
+                        alt="Generic placeholder image"
+                />
+            </div>
+            <div class="card-deck">
+                <div class="card  p-2" style='border-color:transparent'>
+
+                    <h6>Name: <i>{{user.first_name}}</i></h6>
+                    <h6>Email: <i>{{user.email}}</i></h6>
+                    {% endfor %} {% for user in user_profile %}
+                    <h6>Department: <i>{{user.dept}}</i></h6>
+                    <h6>Insta ID: <a href="https://www.instagram.com/{{user.insta_id}}/"><i style="color:#bac1c5">@{{user.insta_id}}</i></a>
+                    </h6>
+                    {% endfor %}
+                </div>
+
+                {% for user in user_profile %}
+                <div class="card" style='border-color:transparent'>
+                    <div class="card-body">
+                        <h5 class="card-title">About</h5>
+                        <p class="card-text">{{user.about}}</p>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User Posts-->
+
+<div class="container mt-5">
+    <div class="">
+       
+        {% if not user_blogs %}
+        <h4 class='text-center text-muted display-4 '> No blogs by user</h4>
+        {% else%}
+
+        {% for blog in user_blogs%}
+        <div class="card" style="background-color: #f5f8fa; border-color:transparent">
+            <a href="read/{{blog.id}}" class='stretched-link' style='text-decoration:none'></a>
+
+            <div class="card-body">
+                <h5 class="card-title">{{blog.title}}</h5>
+                <p class="card-text">
+                    {{blog.content}}
+                </p>
+            </div>
+            <div class="card-footer" style="background-color: transparent;border-color:#e6ecf0">
+                <small class="text-muted"><i>Posted on {{blog.date}} </i>
+                    {% if blog.edit == 1 %}
+                    <i>,Edited</i>
+                    {% endif %}</small>
+                <div class="float-right">
+                    {{ blog.comment_no }}<i class="fa fa-comments mx-2" aria-hidden="true"></i>
+
+                </div>
+            </div>
+        </div>
+
+
+        {% endfor %}
+
+
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content_wrap %}

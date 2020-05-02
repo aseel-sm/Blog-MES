@@ -1,0 +1,146 @@
+{% extends 'basic_view.html' %} {% block wrap_class %} {% endblock wrap_class %}
+
+<!--
+Search page
+  
+-->
+
+{% block style %}
+
+.has-search .form-control {
+padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+position: absolute;
+z-index: 2;
+display: block;
+width: 2.375rem;
+height: 2.375rem;
+line-height: 2.375rem;
+text-align: center;
+pointer-events: none;
+color: #aaa;
+}
+{% endblock style %}
+
+{% block content_wrap %}
+
+
+<div class="container">
+    <div class="form-group has-search mt-2">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" id="myInput" class="form-control"
+               {% if type== 'profile' %}
+
+        placeholder="Search user (username or name)"
+        {% else %}
+        placeholder="Search post (author, title, content or date)"
+        {% endif %}
+        >
+    </div>
+    <table>
+        <tbody id="myTable">
+
+<!--
+Search query for profile
+  
+-->
+        {% if type == 'profile' %}
+        {% for user in data %}
+        <tr>
+            <div id='card' class="card m-2 p-2">
+                <div class="row">
+                    <div class="col-2">
+                        <img
+                                class="rounded-circle"
+                                style="margin: 1px; width: 50px; height: 50px;"
+                                src="media/{{user.image}}"
+                                alt="Generic placeholder image"
+                        />
+                    </div>
+                    <div class="col-7">
+                        <div class="media-body ml-1">
+                            <a href="profile/{{user.username}}"
+                            ><h5 id='name' class="mt-1 mb-0" style="font-weight: bold;">{{user.first_name}}</h5></a
+                            >
+                            <p class="mt-n1 text-muted mb-1">{{user.username}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tr>
+
+        {% endfor %}
+
+        {% else %}
+
+<!--
+search query for post
+  
+-->
+        <tr>
+            {% for blog in data %}
+            <div class="card my-2" id='card' style="background-color: #f5f8fa; border: none;">
+                <div
+                        class="card-header p-1"
+                        style="background-color: transparent; border-color: #e6ecf0;"
+                >
+                    <div class="media ml-2">
+                        <img
+                                class="rounded-circle"
+                                style="margin: 1px; width: 50px; height: 50px;"
+                                src="media/{{blog.user_pic}}"
+                                alt="Generic placeholder image"
+                        />
+
+                        <div class="media-body ml-1">
+                            <a href="profile/{{blog.author}}"><h5 class='mt-1 mb-0' style='font-weight:bold'>
+                                {{blog.author_name}}</h5></a>
+
+                            <p class="mt-n1 text-muted mb-1">@{{blog.author}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{blog.title}}</h5>
+                    <p class="card-text">{{blog.content}}</p>
+                </div>
+                <div
+                        class="card-footer"
+                        style="background-color: transparent; border-color: #e6ecf0;"
+                >
+                    <small class="text-muted"
+                    ><i>Posted on {{blog.date}}</i>
+                        {% if blog.edit == 1 %}
+                        <i>,Edited</i>
+                        {% endif %}
+                    </small>
+                </div>
+
+            </div>
+            {% endfor %}
+        </tr>
+
+        {% endif %}
+
+
+        </tbody>
+        <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+      console.log('a')
+    var value = $(this).val().toLowerCase();
+    $("#card ").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+
+        </script>
+    </table>
+
+
+</div>
+{% endblock content_wrap %}

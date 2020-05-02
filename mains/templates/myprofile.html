@@ -1,0 +1,283 @@
+{% extends 'basic_view.html' %} {% block wrap_class %} {% endblock wrap_class %}
+{% block content_wrap %}
+
+<!--
+
+  Profile Page
+-->
+{% block style %}
+
+
+{% endblock style %}
+<!--
+    Self Profile Data
+-->
+
+<div class="card my-4" style="background-color:#f5f8fa;border:none">
+    <div class="card-body ">
+        <div class="card-deck">
+
+
+            <div class="card border-0 p-2">
+                {% for user in user_data %}
+                <h6>Name: <i>{{user.first_name}}</i></h6>
+                <h6>Email: <i>{{user.email}}</i></h6>
+                {% endfor %} {% for user in user_profile %}
+                <h6>Department: <i>{{user.dept}}</i></h6>
+                <h6>Insta ID: <a href="https://www.instagram.com/{{user.insta_id}}/"><i style="color:#bac1c5">@{{user.insta_id}}</i></a>
+                </h6>
+                {% endfor %}
+            </div>
+
+            {% for user in user_profile %}
+            <div class="card border-0">
+                <div class="card-body">
+                    <h5 class="card-title">About</h5>
+                    <p class="card-text">{{user.about}}</p>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <div class="card-body">
+            <a href="/add_blog">
+                <button class="btn btn-primary m-2" type="button">Add New Blog</button>
+            </a>
+            <button
+                    class="btn btn-primary mx-3"
+                    type="button"
+                    data-toggle="modal"
+                    data-target=".bd-example-modal-sm"
+            >
+                Edit Profile
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+
+</div>
+</div>
+
+<!--
+Modal  Edit prfile
+-->
+
+
+<div
+        class="modal fade bd-example-modal-sm"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="mySmallModalLabel"
+        aria-hidden="true"
+>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <h5 class="modal-title mx-2 my-2" id="exampleModalLabel">Edit Profile</h5>
+
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="edit_profile">
+                        {% csrf_token %}
+                        <label class="form-group has-float-label">
+                            <input
+                                    required
+                                    type="text"
+                                    placeholder=" "
+                                    name="fullname"
+                                    {% for x in user_data %}
+                                    value="{{x.first_name}}"
+                                    {% endfor %}
+                                    required
+                                    class="form-control"
+                            />
+                            <span>Full Name</span>
+                        </label>
+                        <label class="form-group has-float-label">
+                            <input
+                                    required
+                                    type="text"
+                                    placeholder=" "
+                                    value="{{username}}"
+                                    name="username"
+                                    required
+                                    readonly
+                                    class="form-control"
+
+                            />
+                            <span>Username</span>
+                        </label>
+
+
+                        <label class="form-group has-float-label">
+                            <input
+                                    required
+                                    type="text"
+                                    placeholder=" "
+                                    readonly
+
+                                    {% for x in user_profile %}
+                                    value="{{x.dept}}"
+                                    {% endfor %}
+                                    name="dept"
+                                    class="form-control"
+                            />
+                            <span>Department</span>
+                        </label>
+                        <label class="form-group has-float-label">
+                            <input
+                                    required
+                                    type="email"
+                                    placeholder=" "
+                                    name="email"
+                                    {% for x in user_data %}
+                                    value="{{x.email}}"
+                                    {% endfor %}
+                                    required
+                                    class="form-control"
+                            />
+                            <span>Email</span>
+                        </label>
+
+                        <label class="form-group has-float-label">
+                            <input
+                                    type="text"
+                                    placeholder="Optional "
+                                    name="insta_id"
+                                    {% for x in user_profile %}
+                                    value="{{x.insta_id}}"
+                                    {% endfor %}
+                                    class="form-control"
+                            />
+                            <span>Insta Id</span>
+                        </label>
+
+                        <label class="form-group has-float-label">
+              <textarea
+                      name="about"
+                      id=""
+                      placeholder="Optional"
+                      class="w-100 form-control"
+                      cols="30"
+                      rows="10"
+
+              >
+              {% for x in user_profile %}
+              {{x.about}}
+              {% endfor %}
+              </textarea>
+                            <span>Say something about you</span>
+                        </label>
+
+                        <button type="submit" class="btn btn-success">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+Self Blog Items
+-->
+
+{% if not user_blogs %}
+<h1 class="display-4 text-center text-center">No blogs by User</h1>
+{% else %}
+{% for blog in user_blogs %}
+
+<div class="card my-3 mx-auto rounded" style="width: 90%;background-color:#f5f8fa;border:none">
+    <a href="read/{{blog.id}}" class='stretched-link' style='text-decoration:none'></a>
+
+    <div class="card-body">
+        <h5 class="card-title">{{blog.title}}</h5>
+        <p class="card-text">
+            {{blog.content}}
+        </p>
+    </div>
+    <div class="card-footer" style="background-color: transparent;">
+        <small class="text-muted"><i>Posted on {{blog.date}} </i>
+            {% if blog.edit == 1 %}
+            <i>,Edited</i>
+            {% endif %}
+        </small>
+        </small>
+        <div class="float-right">
+            <div>
+                <button
+                        class="btn btn-success float-left"
+                        data-toggle="modal"
+                        data-target=".mbd-example-modal-sm"
+                >
+                    <i class="fas fa-edit">Edit</i>
+                </button>
+                <div class="ml-3 float-right">
+                    {{blog.comment_no}} <i class="fa fa-comments" aria-hidden="true"></i
+                ></div>
+                <a href="delete_blog/{{blog.id}}" class='mx-3 '> <i class="fa fa-trash" style='color:red'
+                                                                    aria-hidden="true"></i> </a>
+
+            </div>
+        </div>
+    </div>
+    <div
+            class="modal fade mbd-example-modal-sm"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="mySmallModalLabel"
+            aria-hidden="true"
+    >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content p-1">
+                <div class="modal-title"><h5>Edit this blog</h5></div>
+                <form method="POST" action="edit_blog/{{blog.id}}">
+                    {% csrf_token %}
+                    <label for="">Title</label
+                    ><input
+                        class="form-control"
+                        value="{{blog.title}}"
+                        type="text"
+                        name="title"
+                />
+
+                    <div class="form mt-3">
+                        <label for=""> Content </label>
+                        <textarea
+                                class="w-100 form-control"
+                                rows="10"
+                                name='content'
+                                value="{{blog.content}}"
+                                id="textarea"
+                        >
+            
+            {{blog.content}}
+            </textarea>
+
+                        <button class="btn btn-primary mt-4" type="submit">Save Edit</button>
+                    </div>
+
+                </form>
+                <script>
+          var textarea = document.getElementById("textarea");
+          var heightLimit = 200;
+
+          textarea.oninput = function () {
+            textarea.style.height = "";
+            textarea.style.height = Math.min(textarea.scrollHeight) + "px";
+          };
+
+                </script>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endfor %}
+{% endif %}
+
+{% endblock content_wrap %}

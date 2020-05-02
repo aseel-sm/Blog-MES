@@ -1,0 +1,120 @@
+{% extends 'basic_view.html' %} {% load static %} {% block style %} @media only
+screen and (min-width: 750px) { .sign .card { width: 50%; } .sign { margin-left:
+25%; } } {%endblock style %} {% block content_wrap %}
+
+<div class="sign">
+    <div class="card mt-5 w-50">
+        <h2 class='text-center mt-2'>Sign Up</h2>
+        <div class="card-body">
+            <form
+                    method="post"
+                    action="sign_up/sign_up_action "
+                    enctype="multipart/form-data"
+            >
+                {% csrf_token %}
+                <label class="form-group has-float-label">
+                    <input
+                            required
+                            type="text"
+                            placeholder=" "
+                            name="fullname"
+                            required
+                            class="form-control"
+                    />
+                    <span>Full Name</span>
+                </label>
+                <label class="form-group has-float-label">
+                    <input
+                            required
+                            type="text"
+                            placeholder=" "
+                            name="username"
+                            required
+                            class="form-control"
+                    />
+                    <span>Username</span>
+                </label>
+
+                {% if messages %}
+
+                {% for message in messages %}
+
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}}</strong>
+                </div>
+
+                <script>
+  $(".alert").alert();
+
+                </script>
+
+                {% endfor %}
+
+                {% endif %}
+
+                <label class="form-group has-float-label">
+                    <input
+                            required
+                            type="password"
+                            placeholder=" "
+                            name="password"
+                            required
+                            class="form-control"
+                    />
+                    <span>Password</span>
+                </label>
+                <div className="form-inline ">
+                    Department
+                    <select class="form-control mb-3" id="" name="dept" id="" required>
+                        {% for x in dept %}
+                        <option value="{{x}}">{{x}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <label class="form-group has-float-label">
+                    <input
+                            required
+                            type="email"
+                            placeholder=" "
+                            name="email"
+                            required
+                            class="form-control"
+                    />
+                    <span>Email</span>
+                </label>
+
+                <label class="form-group has-float-label">
+                    <input
+                            type="text"
+                            placeholder="Optional "
+                            name="insta_id"
+                            class="form-control"
+                    />
+                    <span>Insta Id</span>
+                </label>
+
+                <label class="form-group has-float-label">
+          <textarea
+                  name="about"
+                  id=""
+                  placeholder="Optional"
+                  class="w-100 form-control"
+                  cols="30"
+                  rows="10"
+          >
+          </textarea>
+                    <span>Say something about you</span>
+                </label>
+                Profile Picture: <input type="file" name="profile" accept="image/*"/>
+                <br/>
+                <button type="submit" class="btn btn-success">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content_wrap %}

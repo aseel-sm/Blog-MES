@@ -1,0 +1,109 @@
+{% extends 'basic_view.html' %} {% block wrap_class %} {% endblock wrap_class %}
+{% block content_wrap %}
+
+<!--
+
+  read page(option for comment if user is logged in)
+-->
+<div class="container mt-5">
+    {% for blog in blogs %}
+
+    <div class="card" style="background-color: #f5f8fa; border: none;">
+        <div
+                class="card-header p-1"
+                style="background-color: transparent; border-color: #e6ecf0;"
+        >
+            <div class="media ml-2">
+                <img
+                        class="rounded-circle"
+                        style="margin: 1px; width: 50px; height: 50px;"
+                        src="media/{{blog.user_pic}}"
+                        alt="Generic placeholder image"
+                />
+
+                <div class="media-body ml-1">
+                    <a href="profile/{{blog.author}}"><h5 class='mt-1 mb-0' style='font-weight:bold'>
+                        {{blog.author_name}}</h5></a>
+
+                    <p class="mt-n1 text-muted mb-1">@{{blog.author}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{blog.title}}</h5>
+            <p class="card-text">{{blog.content}}</p>
+        </div>
+        <div
+                class="card-footer"
+                style="background-color: transparent; border-color: #e6ecf0;"
+        >
+            <small class="text-muted"
+            ><i>Posted on {{blog.date}}</i>
+                {% if blog.edit == 1 %}
+                <i>,Edited</i>
+                {% endif %}
+            </small>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="card  mt-5 p-0" style="background-color: #f5f8fa; border: none; border-radius:10px;">
+        <div
+                class="card p-2 border-radius:10px"
+                style="background-color: #f5f8fa; border: none;"
+        >
+            <h5 class="card-title">Comments</h5>
+
+            {% for comment in comments %}
+
+            <div class="card my-2" style="border-color:transparent">
+                <div class="card-body py-1  ">
+                    <a href="profile/{{comment.commenter}}"><h5 class='mt-1 mb-0' style='font-weight:bold'>
+                        {{comment.commenter_name}}</h5></a>
+                    <i>
+                        {{comment.comment}}
+                    </i>
+                    <small class="text-muted ml-3"
+                    ><i>Commented on {{comment.date}} </i></small
+                    >
+                </div>
+            </div>
+
+            {% endfor %} {% if user.is_authenticated %}
+            <form method="post" action="comment_blog/{{id}}">
+                {% csrf_token %}
+
+                <div class="form mt-3">
+            <textarea
+                    class="w-100 form-control"
+                    name="comment"
+                    id="textarea"
+            ></textarea>
+                    <button
+                            type="submit"
+                            class="btn btn-outline-primary float-left mt-2"
+                    >
+                        <i class="fa fa-comment" aria-hidden="true"> Comment Now</i>
+                    </button>
+                </div>
+            </form>
+
+            <script>
+          var textarea = document.getElementById("textarea");
+          var heightLimit = 200;
+
+          textarea.oninput = function () {
+            textarea.style.height = "";
+            textarea.style.height = Math.min(textarea.scrollHeight) + "px";
+          };
+
+            </script>
+            {% else %}
+            <p>You need to login for commenting</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content_wrap %}
+</div>

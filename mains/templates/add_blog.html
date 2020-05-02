@@ -1,0 +1,33 @@
+{% extends 'basic_view.html' %} {% block wrap_class %} {% endblock wrap_class %}
+{% block content_wrap %}
+<!--
+Add blog form
+  
+-->
+<form action="add_blog/add_blog_action/{{user}}/{{user.first_name}}" method="post">
+    {% csrf_token %}
+    <div class="container mt-5">
+
+        <label for="">Title</label><input class="form-control" type="text" name="title"/>
+
+        <div class="form mt-3">
+            <label for="">Content</label>
+            <textarea class="w-100 form-control" name="content" rows="10" id="textarea"></textarea>
+
+            <button class="btn btn-primary mt-4" type="submit">Add Blog</button>
+        </div>
+</form>
+
+<script>
+    var textarea = document.getElementById("textarea");
+    var heightLimit = 200;
+
+    textarea.oninput = function () {
+      textarea.style.height = "";
+      textarea.style.height = Math.min(textarea.scrollHeight) + "px";
+    };
+
+</script>
+</div>
+
+{% endblock content_wrap %}

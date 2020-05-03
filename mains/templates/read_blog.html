@@ -5,6 +5,14 @@
 
   read page(option for comment if user is logged in)
 -->
+
+
+ {% block title %}
+ {% for blog in blogs %}
+
+{{blog.title}}
+  {% endfor %} | MES Talk
+        {% endblock title %}
 <div class="container mt-5">
     {% for blog in blogs %}
 

@@ -4,6 +4,10 @@
 Add blog form
   
 -->
+{% block title %}
+Add Blog
+
+        {% endblock title %}
 <form action="add_blog/add_blog_action/{{user}}/{{user.first_name}}" method="post">
     {% csrf_token %}
     <div class="container mt-5">

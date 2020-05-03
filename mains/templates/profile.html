@@ -5,6 +5,13 @@
 
   User Profile
 -->
+
+{% block title %}
+ {% for user in user_data %}
+
+{{user.first_name}}
+  {% endfor %} | MES Talk
+        {% endblock title %}
 <div class="card mt-3" style='border-color:transparent;'>
     <div class="card-body" style="background-color: #f5f8fa;
   border-radius:10px">

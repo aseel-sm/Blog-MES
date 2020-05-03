@@ -2,7 +2,7 @@
 
 <!--
 Search page
-  
+
 -->
 
 
@@ -37,7 +37,7 @@ color: #aaa;
     <div class="form-group has-search mt-2">
         <span class="fa fa-search form-control-feedback"></span>
         <input type="text" id="myInput" class="form-control"
-               {% if type== 'profile' %}
+               {% if type == 'profile' %}
 
         placeholder="Search user (username or name)"
         {% else %}
@@ -50,7 +50,7 @@ color: #aaa;
 
 <!--
 Search query for profile
-  
+
 -->
         {% if type == 'profile' %}
         {% for user in data %}
@@ -67,7 +67,7 @@ Search query for profile
                     </div>
                     <div class="col-7">
                         <div class="media-body ml-1">
-                            <a href="profile/{{user.username}}"
+                            <a class='stretched-link' href="profile/{{user.username}}"
                             ><h5 id='name' class="mt-1 mb-0" style="font-weight: bold;">{{user.first_name}}</h5></a
                             >
                             <p class="mt-n1 text-muted mb-1">{{user.username}}</p>
@@ -83,7 +83,7 @@ Search query for profile
 
 <!--
 search query for post
-  
+
 -->
         <tr>
             {% for blog in data %}
@@ -108,9 +108,11 @@ search query for post
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="position:relative">
                     <h5 class="card-title">{{blog.title}}</h5>
-                    <p class="card-text">{{blog.content}}</p>
+                    <p class="card-text">{{blog.snippet}}</p>
+                            <a href="read/{{blog.id}}" class='stretched-link' style='text-decoration:none'></a>
+
                 </div>
                 <div
                         class="card-footer"

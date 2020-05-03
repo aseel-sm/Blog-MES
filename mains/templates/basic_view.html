@@ -20,10 +20,10 @@
 
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="/favicon_io/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="media/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="media/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="media/favicon_io/site.webmanifest">
 
 
     <link href="https://fonts.googleapis.com/css2?family=Averia+Sans+Libre:wght@700&display=swap" rel="stylesheet">
@@ -55,7 +55,7 @@
     <button class="btn btn-primary  float-right" style='float:right' id="menu-toggle"><i class="fas fa-bars"></i>
     </button>
     <a class="navbar-brand " style=" font-family: 'Averia Sans Libre', cursive;   float: right;
-    margin-left: inherit;" href="/">MES Talk</a>
+    margin-left: inherit;" href="/">MES Talk Home</a>
 
 </nav>
 <div class="d-flex" id="wrapper">
@@ -80,7 +80,7 @@
                 <div>
                 <!--
 Card if  log in
-  
+
 -->
                     <div class="card profile-card-3">
                         <div class="background-block">
@@ -94,8 +94,7 @@ Card if  log in
                             <h2>{{user.first_name}}</h3>
                                 <small class='text-muted'>@ {{user}}</small>
 
-                                <div class=""><a href="https://www.instagram.com/{{user.id.insta_id}}"><i
-                                        class="fab fa-instagram-square"></i></a></div>
+
                         </div>
 
                     </div>
@@ -113,7 +112,7 @@ Card if  log in
                 {% else %}
 <!--
 Card if not log in
-  
+
 -->
 
                 <div>
@@ -126,7 +125,7 @@ Card if not log in
                             <div style="font-size:20px;font-weight:bold" class="">MES College Marampally</div>
 
 
-                            <p style="font-style:italic">and in between freshers' & farewell, life happend </p>
+                            <p style="font-style:italic">and in between freshers' & farewell, life happened </p>
                         </div>
 
                     </div>

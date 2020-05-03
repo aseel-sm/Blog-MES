@@ -1,4 +1,7 @@
 {% extends 'basic_view.html' %} {% block wrap_class %} {% endblock wrap_class %}
+{% block title %}
+{{user.first_name}} | MES Talk
+        {% endblock title %}
 {% block content_wrap %}
 
 <!--
@@ -12,9 +15,7 @@
 <!--
     Self Profile Data
 -->
-{% block title %}
-{{user.first_name}} | MES Talk
-        {% endblock title %}
+
 
 <div class="card my-4" style="background-color:#f5f8fa;border:none">
     <div class="card-body ">
@@ -193,12 +194,13 @@ Self Blog Items
 {% for blog in user_blogs %}
 
 <div class="card my-3 mx-auto rounded" style="width: 90%;background-color:#f5f8fa;border:none">
-    <a href="read/{{blog.id}}" class='stretched-link' style='text-decoration:none'></a>
 
-    <div class="card-body">
+    <div class="card-body" style="position:relative" >
         <h5 class="card-title">{{blog.title}}</h5>
         <p class="card-text">
-            {{blog.content}}
+    <a href="read/{{blog.id}}" class='stretched-link' style='text-decoration:none'></a>
+
+            {{blog.snippet}}
         </p>
     </div>
     <div class="card-footer" style="background-color: transparent;">
@@ -255,7 +257,7 @@ Self Blog Items
                                 value="{{blog.content}}"
                                 id="textarea"
                         >
-            
+
             {{blog.content}}
             </textarea>
 

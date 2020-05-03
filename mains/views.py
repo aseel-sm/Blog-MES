@@ -11,7 +11,7 @@ from .models import Blog
 
 
 def index(request):
-    blogs = Blog.objects.all()
+    blogs = Blog.objects.order_by('-date')
     users = Members.objects.all()
     comments = Comment.objects.all()
     return render(request, 'blog_quick_view.html', {
@@ -34,7 +34,7 @@ def search(request, type):
     if type == 'profile':
         data = Members.objects.all()
     if type == 'post':
-        data = Blog.objects.all()
+        data = Blog.objects.order_by('-date')
     return render(request, 'search.html', {'data': data, 'type': type})
 
 
@@ -68,7 +68,7 @@ def read(request, blog_id):
 def profile(request, username):
     user_data = Members.objects.all().filter(username=username)
     user_profile = Profile.objects.all().filter(username=username)
-    user_blogs = Blog.objects.all().filter(author=username)
+    user_blogs = Blog.objects.filter(author=username).order_by('-date')
     return render(request, 'profile.html', {
         'user_blogs': user_blogs,
         'user_data': user_data,
@@ -82,7 +82,7 @@ def myprofile(request, username):
     user_data = Members.objects.all().filter(username=username)
     user_profile = Profile.objects.all().filter(username=username)
     user = Members.creates(username)
-    user_blogs = Blog.objects.filter(author=user)
+    user_blogs = Blog.objects.filter(author=user).order_by('-date')
     return render(request, 'myprofile.html', {
         'user_blogs': user_blogs,
         'user_data': user_data,

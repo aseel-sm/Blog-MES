@@ -1,4 +1,10 @@
 {% extends 'basic_view.html' %} {% block wrap_class %} {% endblock wrap_class %}
+{% block title %}
+ {% for user in user_data %}
+
+{{user.first_name}}
+  {% endfor %} | MES Talk
+        {% endblock title %}
 {% block content_wrap %}
 
 <!--
@@ -6,12 +12,7 @@
   User Profile
 -->
 
-{% block title %}
- {% for user in user_data %}
 
-{{user.first_name}}
-  {% endfor %} | MES Talk
-        {% endblock title %}
 <div class="card mt-3" style='border-color:transparent;'>
     <div class="card-body" style="background-color: #f5f8fa;
   border-radius:10px">
@@ -55,19 +56,19 @@
 
 <div class="container mt-5">
     <div class="">
-       
+
         {% if not user_blogs %}
         <h4 class='text-center text-muted display-4 '> No blogs by user</h4>
         {% else%}
 
         {% for blog in user_blogs%}
-        <div class="card" style="background-color: #f5f8fa; border-color:transparent">
+        <div class="card my-2" style="background-color: #f5f8fa; border-color:transparent">
             <a href="read/{{blog.id}}" class='stretched-link' style='text-decoration:none'></a>
 
             <div class="card-body">
                 <h5 class="card-title">{{blog.title}}</h5>
                 <p class="card-text">
-                    {{blog.content}}
+                    {{blog.snippet}}
                 </p>
             </div>
             <div class="card-footer" style="background-color: transparent;border-color:#e6ecf0">

@@ -2,7 +2,7 @@
 {% load static %}
 <!--
 index page
-  
+
 -->
 {% block quick_card_css %}
 <link rel="stylesheet" href="{% static 'css/quick_card.css' %}"/>
@@ -44,7 +44,7 @@ Home | MES Talk
         <a href="read/{{blog.id}}" class='stretched-link' style='text-decoration:none'></a>
         <h5 class="card-title">{{blog.title}}</h5>
         <p class="card-text">
-            {{blog.content}}
+            {{ blog.snippet }}
         </p>
     </div>
     <div class="card-footer" style="background-color:transparent;border-color:#e6ecf0">
@@ -62,4 +62,4 @@ Home | MES Talk
 
 {% endfor %}
 {% endblock content_wrap %}
- 
+

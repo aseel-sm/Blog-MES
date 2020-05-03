@@ -1,4 +1,10 @@
 {% extends 'basic_view.html' %} {% block wrap_class %} {% endblock wrap_class %}
+ {% block title %}
+ {% for blog in blogs %}
+
+{{blog.title}}
+ {% endfor %} | MES Talk
+        {% endblock title %}
 {% block content_wrap %}
 
 <!--
@@ -7,12 +13,8 @@
 -->
 
 
- {% block title %}
- {% for blog in blogs %}
 
-{{blog.title}}
-  {% endfor %} | MES Talk
-        {% endblock title %}
+
 <div class="container mt-5">
     {% for blog in blogs %}
 

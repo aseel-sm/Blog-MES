@@ -1,5 +1,4 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager, \
-    PermissionsMixin
+from django.contrib.auth.models import AbstractUser, BaseUserManager,PermissionsMixin
 from django.db import models
 from django.conf import settings
 
@@ -98,6 +97,8 @@ class Blog(models.Model):
     def comments(self):
         return Comment.objects.all().filter(blog_id=id)
 
+    def snippet(self):
+        return self.content[:60]+' ..'
 
 class Comment(models.Model):
     blog_id = models.CharField(max_length=100)

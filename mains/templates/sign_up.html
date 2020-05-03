@@ -1,10 +1,11 @@
 {% extends 'basic_view.html' %} {% load static %} {% block style %} @media only
 screen and (min-width: 750px) { .sign .card { width: 50%; } .sign { margin-left:
-25%; } } {%endblock style %} {% block content_wrap %}
-
+25%; } } {%endblock style %}
 {% block title %}
 Sign Up
-        {% endblock title %}
+        {% endblock title %}{% block content_wrap %}
+
+
 
 <div class="sign">
     <div class="card mt-5 w-50">

@@ -1,13 +1,14 @@
 {% extends 'basic_view.html' %} {% block wrap_class %} {% endblock wrap_class %}
-{% block content_wrap %}
-<!--
-Add blog form
-  
--->
 {% block title %}
 Add Blog
 
         {% endblock title %}
+{% block content_wrap %}
+<!--
+Add blog form
+
+-->
+
 <form action="add_blog/add_blog_action/{{user}}/{{user.first_name}}" method="post">
     {% csrf_token %}
     <div class="container mt-5">
